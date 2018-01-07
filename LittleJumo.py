@@ -79,7 +79,6 @@ class ImgHandle:
 
 		cv2.line(gray,(0,self.breakFlag),(270,self.breakFlag),(0,0,0),5)
 		contours, hierarchy = cv2.findContours(gray,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
-		cv2.drawContours(img,contours,-1,(0,0,255),3) 
 		cnts = sorted(contours, key = cv2.contourArea, reverse = True)
 		(x,y) = (0,0)
 		r = 0
@@ -88,8 +87,6 @@ class ImgHandle:
 			 if y > 50 and abs(x-px) > 15:
 			 	break
 		(x,y),r=(int(x),int(y)),int(r)
-		cv2.circle(img,(x,y), r, (0, 0, 0), 1)
-		cv2.circle(img,(x,y), 2, (0, 255, 0), 2)
 		return (x,y)
 
 
@@ -102,7 +99,7 @@ class CmdHandle:
 
 	# 发送跳跃指令
 	def jumpOrder(self,dis):
-		pressTime = max(6*dis,200)
+		pressTime = max(6*dis,180)
 		os.system('adb shell input swipe 1 1 1 1 %s'%pressTime)
 
 # 应用开始
@@ -140,7 +137,6 @@ if __name__ == '__main__':
 	print 'hello'
 	app = App()
 	app.main()
-	cv2.waitKey(0)
 	pass
 
 
